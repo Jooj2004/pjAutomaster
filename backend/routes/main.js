@@ -6,6 +6,8 @@ const agendaController = require('../controllers/agenda')
 const authController = require('../controllers/auth')
 const historicoController = require('../controllers/historico')
 const mensagemController = require('../controllers/menssagem')
+const osController = require('../controllers/ordemservico')
+const pecaController = require('../controllers/peca')
 
 //Auth
 mainRouter.post('/auth/registro', authController.registro);
@@ -23,7 +25,13 @@ mainRouter.get('/veiculos/cliente/:cliente_id', veiculoController.getVeiculosByC
 mainRouter.delete('/veiculos/:id', veiculoController.deleteVeiculo)
 
 // Agenda
+mainRouter.get('/agenda/cliente/:cliente_id', agendaController.buscarAgendamentosPorCliente);
 mainRouter.post('/agenda/agendar', agendaController.agendar)
+mainRouter.get('/agenda/agendamento/:id', agendaController.buscarAgendamentoById)
+mainRouter.get('/agenda/allagendamento', agendaController.listarAgendamentos)
+mainRouter.get('/agenda/veiculo/:veiculo_id', agendaController.buscarAgendamentosPorVeiculo)
+mainRouter.put('/agenda/update/:id', agendaController.editarAgendamento)
+mainRouter.delete('/agenda/delete/:id', agendaController.deletarAgendamento)
 
 //Histórico
 mainRouter.get('/historico/:cliente_id', historicoController.getHistoricClient)
@@ -36,5 +44,15 @@ mainRouter.get('/clientes', perfilController.getAllClientes)
 mainRouter.get('/mensagens/os/:osId', mensagemController.getMensagensOS);
 mainRouter.post('/mensagens', mensagemController.enviarMensagem);
 mainRouter.get('/verificar-acesso/:osId/:usuarioId/:perfil', mensagemController.verificarAcessoOS);
+
+//Ordem de Serviço
+mainRouter.get('/os/:funcionario_id', osController.getOSByFuncionario);
+mainRouter.post('/os/create', osController.createOS)
+mainRouter.put('/update/:id', osController.updateOS);
+mainRouter.delete('/delete/:id', osController.deleteOS);
+mainRouter.get('/os/cliente/:cliente_id', osController.getOSByCliente);
+
+//Peca
+mainRouter.post('/pecas', pecaController.createPeca);
 
 module.exports = mainRouter;

@@ -1,0 +1,83 @@
+.editar-os-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px;
+}
+
+.editar-os-container h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.editar-os-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.editar-os-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: #333;
+}
+
+.editar-os-form input,
+.editar-os-form textarea,
+.editar-os-form select {
+  margin-top: 5px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  transition: border 0.2s;
+}
+
+.editar-os-form input:focus,
+.editar-os-form textarea:focus,
+.editar-os-form select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.editar-os-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.btn-salvar {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-salvar:hover {
+  background-color: #0069d9;
+}
+
+.btn-excluir {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-excluir:hover {
+  background-color: #c82333;
+}
+
+.error {
+  color: #c0392b;
+  font-weight: 600;
+  text-align: center;
+}

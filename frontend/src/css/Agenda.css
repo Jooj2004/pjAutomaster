@@ -1,0 +1,226 @@
+/* ====== Layout Base ====== */
+main {
+  padding: 10px;
+  background-color: #f9fbff;
+  font-family: 'Inter', sans-serif;
+}
+
+h1 {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* ====== Formulário ====== */
+form {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.form-agenda select {
+  width: 100%;
+  max-width: 320px;
+  padding: 10px 38px 10px 14px;
+  border: 1px solid #b3c6e0;
+  border-radius: 10px;
+  font-size: 15px;
+  appearance: none;
+  outline: none;
+  margin-bottom: 16px;
+  transition: border-color 0.2s;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg width='16' height='16' xmlns='http://www.w3.org/2000/svg'><polyline points='4,7 8,3 12,7' fill='none' stroke='%231a74e9' stroke-width='1.2'/><polyline points='4,9 8,13 12,9' fill='none' stroke='%231a74e9' stroke-width='1.2'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px 16px;
+}
+
+.form-agenda select:focus {
+  border-color: #1a74e9;
+}
+
+/* ====== Botões ====== */
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Botão principal (Enviar / Novo) */
+.btn-enviar, .btn-novo {
+  background-color: #1a74e9;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(26, 116, 233, 0.1);
+}
+
+.btn-enviar:hover, .btn-novo:hover {
+  background-color: #0d3c7b;
+}
+
+/* Botão Editar */
+.btn-editar {
+  background-color: #ffc107;
+  color: #212121;
+}
+
+.btn-editar:hover {
+  background-color: #e0a800;
+}
+
+/* Botão Excluir */
+.btn-excluir {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-excluir:hover {
+  background-color: #b02a37;
+}
+
+/* Botão Fechar (modal) */
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: #333;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.btn-close:hover {
+  color: #1a74e9;
+}
+
+/* ====== Cards e Grade ====== */
+.agenda-container {
+  padding: 20px;
+}
+
+.agenda-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.agenda-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.agenda-card:hover {
+  transform: translateY(-3px);
+}
+
+.agenda-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.agenda-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* ====== Modal ====== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 10px;
+  padding: 25px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Modal Tela Cheia */
+.modal-full {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content-full {
+  background: #fff;
+  width: 90%;
+  height: 90%;
+  border-radius: 12px;
+  padding: 25px;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* ====== Calendário ====== */
+.cal-desk .rdp-day,
+.cal-mobile .rdp-day {
+  color: #222;
+}
+
+.cal-desk .rdp-day:hover,
+.cal-mobile .rdp-day:hover {
+  background-color: #e0e0e0;
+  border-radius: 50%;
+}
+
+.cal-desk .rdp-caption_label,
+.cal-mobile .rdp-caption_label {
+  text-transform: capitalize;
+}
+
+/* ====== Responsividade ====== */
+@media (max-width: 600px) {
+  .form-agenda select {
+    font-size: 14px;
+  }
+
+  .btn-enviar {
+    width: 80%;
+    margin: 18px auto;
+    display: block;
+  }
+
+  .cal-desk {
+    display: none;
+  }
+  .cal-mobile {
+    display: block;
+  }
+}
+
+@media (min-width: 600px) {
+  .cal-desk {
+    display: block;
+  }
+  .cal-mobile {
+    display: none;
+  }
+}

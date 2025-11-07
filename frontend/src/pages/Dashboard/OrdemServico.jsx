@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import {AuthContext} from "../../context/AuthContext";
 import '../../css/OrdemServico.css'
-import CaixaMensagens from '../../components/ordemservico/caixa-menssagem';
+import ListaOrdemServico from '../../components/ordemservico/OrdemServicoPage';
+import ListarOrdemServicoCliente from '../../components/ordemservico/ListarOrdemServicoCliente';
 
 export default function OrdemServico() {
     const {user} = useContext(AuthContext);
@@ -12,15 +13,13 @@ export default function OrdemServico() {
             <h1>Página da Ordem de Serviço</h1>
             { perfil === 'funcionario' &&
                 <div>
-                    ...
+                    <ListaOrdemServico/>
                 </div>
             }
 
             { perfil === 'cliente' &&
                 <div>
-                    <CaixaMensagens osId={1} /> 
-                    {/*Simulando ID da ordem de serviço*/}
-                    {/*Isso nem vaificar aqui, é só para testar*/}
+                    <ListarOrdemServicoCliente/>
                 </div>
             }
         </div>

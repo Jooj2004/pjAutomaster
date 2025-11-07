@@ -1,7 +1,7 @@
 import "../../css/Agenda.css"
-import { FormAgenda } from "../../components/agenda/form-agenda"
 import { useContext } from "react";
 import {AuthContext} from "../../context/AuthContext"
+import {ListarAgendamentosCliente} from "../../components/agenda/listar-agendamento-cliente"
 
 export default function Agenda () {
     const {user} = useContext(AuthContext);
@@ -19,7 +19,7 @@ export default function Agenda () {
             { perfil === 'cliente' &&
                 <div>
                     <h1>Agendamento de Serviço</h1>
-                    <FormAgenda />
+                    <ListarAgendamentosCliente />
                 </div>
             }
             </div>

@@ -229,3 +229,67 @@ exports.deletarAgendamento = async (req, res) => {
     return res.status(500).json({ error: "Erro no servidor ao excluir agendamento." });
   }
 };
+
+// ➕ Registrar indisponibilidades
+exports.setIndisponibilidade = async (req, res) => {
+  try {
+    const { funcionario_id, datas_indisponiveis } = req.body;
+
+    if (!funcionario_id || !Array.isArray(datas_indisponiveis)) {
+      return res.status(400).json({ error: "Dados inválidos." });
+    }
+
+    // Remove todas as indisponibilidades antigas do funcionário
+    await pool.query(
+      "DELETE FROM indisponibilidade_funcionario WHERE funcionario_id = ?",
+      [funcionario_id]
+    );
+
+    // Insere novas indisponibilidades, se houver
+    if (datas_indisponiveis.length > 0) {
+      const sql =
+        "INSERT INTO indisponibilidade_funcionario (funcionario_id, data) VALUES " +
+        datas_indisponiveis.map(() => "(?, ?)").join(", ");
+
+      const values = datas_indisponiveis.flatMap((date) => [funcionario_id, date]);
+
+      await pool.query(sql, values);
+    }
+
+    return res.status(200).json({ message: "Indisponibilidades atualizadas com sucesso." });
+  } catch (error) {
+    console.error("Erro ao salvar indisponibilidades:", error);
+    return res.status(500).json({ error: "Erro no servidor ao salvar indisponibilidades." });
+  }
+};
+
+// 📅 Buscar indisponibilidades por funcionário
+exports.getIndisponibilidade = async (req, res) => {
+  try {
+    const { funcionario_id } = req.params
+    const [rows] = await pool.query(
+      "SELECT data FROM indisponibilidade_funcionario WHERE funcionario_id = ? ORDER BY data",
+      [funcionario_id]
+    )
+
+    return res.status(200).json(rows)
+  } catch (error) {
+    console.error("Erro ao buscar indisponibilidades:", error)
+    return res.status(500).json({ error: "Erro no servidor ao buscar indisponibilidades." })
+  }
+}
+
+// ❌ Remover uma data específica
+exports.removerIndisponibilidade = async (req, res) => {
+  try {
+    const { funcionario_id, data } = req.params
+    await pool.query(
+      "DELETE FROM indisponibilidade_funcionario WHERE funcionario_id = ? AND data = ?",
+      [funcionario_id, data]
+    )
+    return res.status(200).json({ message: "Indisponibilidade removida." })
+  } catch (error) {
+    console.error("Erro ao remover indisponibilidade:", error)
+    return res.status(500).json({ error: "Erro no servidor ao remover indisponibilidade." })
+  }
+}

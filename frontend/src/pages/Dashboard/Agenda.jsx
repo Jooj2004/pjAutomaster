@@ -2,6 +2,7 @@ import "../../css/Agenda.css"
 import { useContext } from "react";
 import {AuthContext} from "../../context/AuthContext"
 import {ListarAgendamentosCliente} from "../../components/agenda/listar-agendamento-cliente"
+import { GestaoAgendaFuncionario } from "../../components/agenda/GestaoAgendaFuncionario";
 
 export default function Agenda () {
     const {user} = useContext(AuthContext);
@@ -13,7 +14,9 @@ export default function Agenda () {
         <main>
             <div>
             { perfil === 'funcionario' &&
-                <div></div>
+                <div>
+                    <GestaoAgendaFuncionario />
+                </div>
             }
 
             { perfil === 'cliente' &&

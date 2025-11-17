@@ -1,0 +1,72 @@
+/* ======== ESTILO GERAL ======== */
+.cal-desk,
+.cal-mobile {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin: 20px auto;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+}
+
+/* ======== TÍTULO DO MÊS ======== */
+.rdp-caption_label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ======== DIAS ======== */
+.rdp-day {
+  font-size: 0.95rem;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover de dia normal */
+.rdp-day:hover {
+  background-color: #e9ecef;
+  color: #000;
+}
+
+/* Dia selecionado (indisponível) */
+.rdp-day_selected {
+  background-color: #dc3545 !important;
+  color: #fff !important;
+  border: 1px solid #b02a37 !important;
+}
+
+/* Dia atual */
+.rdp-day_today {
+  font-weight: bold;
+  border: 1px solid #007bff !important;
+}
+
+/* Dia desativado */
+.rdp-day_disabled {
+  color: #ccc !important;
+  cursor: not-allowed;
+}
+
+/* ======== LAYOUT RESPONSIVO ======== */
+.cal-desk {
+  display: flex;
+  justify-content: center;
+}
+
+.cal-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .cal-desk {
+    display: none;
+  }
+
+  .cal-mobile {
+    display: flex;
+    justify-content: center;
+  }
+}

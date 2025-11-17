@@ -33,6 +33,11 @@ mainRouter.get('/agenda/veiculo/:veiculo_id', agendaController.buscarAgendamento
 mainRouter.put('/agenda/update/:id', agendaController.editarAgendamento)
 mainRouter.delete('/agenda/delete/:id', agendaController.deletarAgendamento)
 
+// Indisponibilidade de Funcionário
+mainRouter.get('/agenda/indisponibilidade/:funcionario_id', agendaController.getIndisponibilidade)
+mainRouter.post('/agenda/indisponibilidade', agendaController.setIndisponibilidade)
+mainRouter.delete('/agenda/indisponibilidade/:funcionario_id/:data', agendaController.removerIndisponibilidade)
+
 //Histórico
 mainRouter.get('/historico/:cliente_id', historicoController.getHistoricClient)
 mainRouter.get('/historico', historicoController.getHistoricAllClients);

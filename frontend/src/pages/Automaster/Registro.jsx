@@ -13,7 +13,7 @@ const Registro = () => {
     endereco: '',
     cpf: '',
     perfil: 'cliente', // valor padrão
-    funcao: ''     
+    funcao: ''
   });
 
   const [loading, setLoading] = useState(false);

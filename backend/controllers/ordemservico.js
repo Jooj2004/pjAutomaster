@@ -1,36 +1,36 @@
 const pool = require('../models/database');
 
 exports.createOS = async (req, res) => {
-    try {
-        const { diagnostico, tempo, custo, status, agendamento_id, funcionario_id } = req.body;
+  try {
+    const { diagnostico, tempo, custo, status, agendamento_id, funcionario_id } = req.body;
 
-        if (!diagnostico || !tempo || !custo || !status || !funcionario_id) {
-            return res.status(400).json({ error: "Preencha todos os campos obrigatórios." });
-        }
+    if (!diagnostico || !tempo || !custo || !status || !funcionario_id) {
+      return res.status(400).json({ error: "Preencha todos os campos obrigatórios." });
+    }
 
-        const [result] = await pool.query(
-            `INSERT INTO ordemservico
+    const [result] = await pool.query(
+      `INSERT INTO ordemservico
                 (diagnostico, tempo, custo, status, agendamento_id, funcionario_id)
              VALUES (?, ?, ?, ?, ?, ?)`,
-            [diagnostico, tempo, custo, status, agendamento_id || null, funcionario_id]
-        );
+      [diagnostico, tempo, custo, status, agendamento_id || null, funcionario_id]
+    );
 
-        res.status(201).json({
-            message: "Ordem de Serviço criada com sucesso!",
-            os: {
-                id: result.insertId,
-                diagnostico,
-                tempo,
-                custo,
-                status,
-                agendamento_id: agendamento_id || null,
-                funcionario_id
-            }
-        });
-    } catch (error) {
-        console.error("Erro ao criar OS:", error);
-        res.status(500).json({ error: error.message });
-    }
+    res.status(201).json({
+      message: "Ordem de Serviço criada com sucesso!",
+      os: {
+        id: result.insertId,
+        diagnostico,
+        tempo,
+        custo,
+        status,
+        agendamento_id: agendamento_id || null,
+        funcionario_id
+      }
+    });
+  } catch (error) {
+    console.error("Erro ao criar OS:", error);
+    res.status(500).json({ error: error.message });
+  }
 };
 
 exports.updateOS = async (req, res) => {
@@ -49,6 +49,31 @@ exports.updateOS = async (req, res) => {
 
     if (result.affectedRows === 0)
       return res.status(404).json({ error: "OS não encontrada." });
+
+    // Notificação Twilio
+    if (status === 'Aguardando Peças' || status === 'Pronto' || status === 'Concluído') {
+      try {
+        const [rows] = await pool.query(`
+          SELECT u.telefone, u.email, v.modelo, v.placa
+          FROM ordemservico os
+          JOIN agendamento a ON os.agendamento_id = a.id
+          JOIN veiculo v ON a.veiculo_id = v.id
+          JOIN cliente c ON v.cliente_id = c.id
+          JOIN usuario u ON c.id = u.id
+          WHERE os.id = ?
+        `, [id]);
+
+        if (rows.length > 0) {
+          const { telefone, email, modelo, placa } = rows[0];
+          const veiculoInfo = `${modelo} (${placa})`;
+          const notificacaoController = require('./notificacao');
+          await notificacaoController.notifyStatusUpdate(telefone, status, veiculoInfo, email);
+        }
+      } catch (notifyError) {
+        console.error("Erro ao enviar notificação Twilio:", notifyError);
+        // Não falhar a requisição se a notificação falhar
+      }
+    }
 
     res.json({ message: "Ordem de Serviço atualizada com sucesso!" });
   } catch (error) {
@@ -107,14 +132,14 @@ exports.getOSByFuncionario = async (req, res) => {
 };
 
 exports.getOSByCliente = async (req, res) => {
-    const { cliente_id } = req.params;
+  const { cliente_id } = req.params;
 
-    if (!cliente_id) {
-        return res.status(400).json({ error: "O ID do cliente é obrigatório." });
-    }
+  if (!cliente_id) {
+    return res.status(400).json({ error: "O ID do cliente é obrigatório." });
+  }
 
-    try {
-        const [rows] = await pool.query(`
+  try {
+    const [rows] = await pool.query(`
             SELECT 
                 os.id AS os_id,
                 os.diagnostico,
@@ -137,13 +162,13 @@ exports.getOSByCliente = async (req, res) => {
             ORDER BY os.id DESC
         `, [cliente_id]);
 
-        if (rows.length === 0) {
-            return res.status(404).json({ message: "Nenhuma OS encontrada para este cliente." });
-        }
-
-        res.status(200).json(rows);
-    } catch (error) {
-        console.error("Erro ao buscar OS do cliente:", error);
-        res.status(500).json({ error: "Erro no servidor ao buscar OS do cliente." });
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "Nenhuma OS encontrada para este cliente." });
     }
+
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error("Erro ao buscar OS do cliente:", error);
+    res.status(500).json({ error: "Erro no servidor ao buscar OS do cliente." });
+  }
 };

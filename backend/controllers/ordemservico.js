@@ -4,14 +4,31 @@ exports.createOS = async (req, res) => {
   try {
     const { diagnostico, tempo, custo, status, agendamento_id, funcionario_id } = req.body;
 
-    if (!diagnostico || !tempo || !custo || !status || !funcionario_id) {
-      return res.status(400).json({ error: "Preencha todos os campos obrigatórios." });
+    // Validações corretas
+    if (!diagnostico) {
+      return res.status(400).json({ error: "O diagnóstico é obrigatório." });
+    }
+
+    if (tempo == null || isNaN(tempo)) {
+      return res.status(400).json({ error: "O tempo deve ser um número válido." });
+    }
+
+    if (custo == null || isNaN(custo)) {
+      return res.status(400).json({ error: "O custo deve ser um número válido." });
+    }
+
+    if (!status) {
+      return res.status(400).json({ error: "O status é obrigatório." });
+    }
+
+    if (!funcionario_id) {
+      return res.status(400).json({ error: "O ID do funcionário é obrigatório." });
     }
 
     const [result] = await pool.query(
       `INSERT INTO ordemservico
-                (diagnostico, tempo, custo, status, agendamento_id, funcionario_id)
-             VALUES (?, ?, ?, ?, ?, ?)`,
+          (diagnostico, tempo, custo, status, agendamento_id, funcionario_id)
+       VALUES (?, ?, ?, ?, ?, ?)`,
       [diagnostico, tempo, custo, status, agendamento_id || null, funcionario_id]
     );
 

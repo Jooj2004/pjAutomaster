@@ -6,7 +6,6 @@ export const GestaoAgendaFuncionario = () => {
   const { user } = useContext(AuthContext);
   const [diasIndisponiveis, setDiasIndisponiveis] = useState([]);
 
-  // Carregar dias indisponíveis do backend
   useEffect(() => {
     const fetchIndisponiveis = async () => {
       if (!user?.id) return;
@@ -15,7 +14,6 @@ export const GestaoAgendaFuncionario = () => {
         const data = await res.json();
 
         if (res.ok && Array.isArray(data)) {
-          // Converte para objetos Date
           setDiasIndisponiveis(
             data.map((d) => new Date(d.data))
           );
@@ -27,14 +25,11 @@ export const GestaoAgendaFuncionario = () => {
     fetchIndisponiveis();
   }, [user]);
 
-  // Alternar seleção de dias
   const toggleDia = (diasSelecionados) => {
-    // Garante que sempre sejam objetos Date
     const formatados = diasSelecionados.map((d) => new Date(d));
     setDiasIndisponiveis(formatados);
   };
 
-  // Salvar no backend
   const salvar = async () => {
     try {
       if (!user?.id) return alert("Usuário não autenticado");

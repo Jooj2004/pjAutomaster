@@ -6,7 +6,6 @@ export const FormAgenda = () => {
     const { user } = useContext(AuthContext)
     const [veiculos, setVeiculos] = useState([])
     const [horarios, setHorarios] = useState([
-        // 🔮 TODO: substituir por horários vindos do backend
         "08:00", "09:00", "10:00", "11:00", "14:00", "15:00", "16:00"
     ])
 
@@ -23,7 +22,6 @@ export const FormAgenda = () => {
             try {
                 if (!user) return
 
-                // Buscar dados do usuário para pegar o clienteId
                 const resUser = await fetch(`http://localhost:3001/user/${user.id}`)
                 const usuario = await resUser.json()
 

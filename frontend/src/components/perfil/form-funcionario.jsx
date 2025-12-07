@@ -147,10 +147,6 @@ export const FormFuncionario = ({ disable, setDisable }) => {
                 />
             </label>
 
-            <div>
-                Campo para a AGENDA
-            </div>
-
             {!disable &&
                 <div className="area-button">
                     <button className="btn-cancel" type="reset">Cancelar</button>

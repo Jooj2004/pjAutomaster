@@ -14,7 +14,6 @@ export const ModalHistorico = ({data, user, onClose}) => (
             <p><strong>Peças utilizadas:</strong> {data.pecas.join(", ")}</p>
             <p><strong>Custo total:</strong> {data.custo}</p>
             <p><strong>Status:</strong> {data.status}</p>
-            LINK PARA A AGENDA
             <button className="btn-voltar" onClick={onClose}>Voltar</button>
         </div>
     </div>

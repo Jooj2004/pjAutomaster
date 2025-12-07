@@ -11,7 +11,7 @@ const MasterPage = () => {
     <div>
       <Header />
       <div className="separator-line"></div>
-      <main className="main-content">
+      <main>
         <Outlet />
       </main>
       <div className="separator-line"></div>

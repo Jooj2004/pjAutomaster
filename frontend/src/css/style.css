@@ -101,12 +101,7 @@ ul {
     border-color: var(--vermelho-automaster);
 }
 
-/* -------------------- CONTEÚDO -------------------- */
-.main-content {
-    background-color: var(--cinza-claro);
-    padding: 40px 20px;
-    min-height: 400px;
-}
+
 
 /* -------------------- RODAPÉ -------------------- */
 .automaster-footer {
@@ -413,8 +408,8 @@ ul {
 
 /* -------------------- CONTENT SECTION COM BACKGROUND -------------------- */
 .content-section {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     padding: 80px 20px;
     min-height: 400px;
     display: flex;
@@ -449,5 +444,113 @@ ul {
 
     .content-section p {
         font-size: 14px;
+    }
+}
+/* -------------------- ESTILOS DA TELA INICIAL (APP.JS) -------------------- */
+.content-section {
+    width: 100%;
+    margin: 0;
+    padding: 150px 20px; /* Aumenta o padding vertical */
+    min-height: 70vh; /* Garante altura mínima */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative; /* Para o overlay */
+}
+
+/* Overlay escuro para melhorar a legibilidade do texto */
+.content-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* 40% de opacidade preta */
+    z-index: 1;
+}
+
+.hero-content-container {
+    z-index: 2; /* Garante que o conteúdo fique acima do overlay */
+    max-width: 800px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.1); /* Fundo levemente escuro para o texto */
+    border-radius: 10px;
+}
+
+.content-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.content-section p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.hero-button {
+    background-color: var(--vermelho-automaster);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.hero-button:hover {
+    background-color: #d6333f; /* Um vermelho um pouco mais escuro */
+    transform: translateY(-2px);
+}
+
+/* Responsividade para a tela inicial */
+@media (max-width: 992px) {
+    .content-section {
+        min-height: 60vh;
+        padding: 100px 20px;
+    }
+
+    .content-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .content-section p {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-section {
+        align-items: center;
+        text-align: center;
+        padding: 80px 15px;
+    }
+
+    .hero-content-container {
+        background-color: rgba(0, 0, 0, 0.5); /* Aumenta a opacidade do fundo do texto no mobile */
+    }
+
+    .content-section h1 {
+        font-size: 2rem;
+    }
+
+    .content-section p {
+        font-size: 1rem;
+    }
+
+    .hero-button {
+        padding: 12px 25px;
+        font-size: 1rem;
     }
 }

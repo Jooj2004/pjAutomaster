@@ -23,12 +23,15 @@ const App = () => {
       className="content-section"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      <h1>Bem-vindo à AutoMaster!</h1>
-      <p>
-        Sua oficina de confiança para reparos e serviços automotivos.
-        Navegue por nossa página para saber mais sobre nossos serviços e
-        como podemos ajudar você a manter seu carro em perfeitas condições.
-      </p>
+      <div className="hero-content-container">
+        <h1>Bem-vindo à AutoMaster!</h1>
+        <p>
+          Sua oficina de confiança para reparos e serviços automotivos.
+          Navegue por nossa página para saber mais sobre nossos serviços e
+          como podemos ajudar você a manter seu carro em perfeitas condições.
+        </p>
+        <button className="hero-button">Saiba Mais</button>
+      </div>
     </section>
   )
 }
